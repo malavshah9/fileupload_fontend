@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <!--<ion-navbar>
     <ion-title>{{ 'LIST_MASTER_TITLE' | translate }}</ion-title>
 
     <ion-buttons end>
@@ -9,12 +9,23 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
+-->
 </ion-header>
 
 <ion-content>
 
-  <ion-list>
+
+    <input type="file"  #fileInput  name="file" style="visibility: hidden; height: 0px"
+     (change)="onFileSelected($event)">
+    <button value="click here" name="add" (click)="onAdd()">Click here</button>
+    <button type="button" (click)="onUpload()">Upload</button>
+
+
+
+
+
+
+ <!-- <ion-list>
     <ion-item-sliding *ngFor="let item of currentItems">
       <button ion-item (click)="openItem(item)">
         <ion-avatar item-start>
@@ -31,5 +42,5 @@
         </button>
       </ion-item-options>
     </ion-item-sliding>
-  </ion-list>
+  </ion-list>-->
 </ion-content>

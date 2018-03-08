@@ -1,19 +1,24 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 
-import { Item } from '../../models/item';
-import { Items } from '../../providers/providers';
+
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { ViewChild } from '@angular/core';
+
 
 @IonicPage()
 @Component({
   selector: 'page-list-master',
   templateUrl: 'list-master.html'
 })
+  
 export class ListMasterPage {
-  currentItems: Item[];
-
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+ 
+  
+@ViewChild("fileInput") fileInput;
+selectedFile: File = null;
+constructor(public navCtrl: NavController,private http:HttpClient) {
+   
   }
 
   /**
@@ -22,10 +27,28 @@ export class ListMasterPage {
   ionViewDidLoad() {
   }
 
+  onFileSelected(value) {
+    this.selectedFile = <File>value.target.files[0];
+
+  }
+  onUpload() {
+    const fd = new FormData();
+
+    fd.append("image", this.selectedFile, this.selectedFile.name);
+
+    this.http.post("http://localhost:3000/imgs/", fd)
+    .subscribe(res => {
+      console.log(res);
+    });
+  }
+  onAdd(){
+    this.fileInput.nativeElement.click();
+  }
   /**
    * Prompt the user to add a new item. This shows our ItemCreatePage in a
    * modal and then adds the new item to our data source if the user created one.
    */
+  /*
   addItem() {
     let addModal = this.modalCtrl.create('ItemCreatePage');
     addModal.onDidDismiss(item => {
@@ -34,21 +57,21 @@ export class ListMasterPage {
       }
     })
     addModal.present();
-  }
+  }*/
 
   /**
    * Delete an item from the list of items.
    */
-  deleteItem(item) {
+  /*deleteItem(item) {
     this.items.delete(item);
   }
-
+*/
   /**
    * Navigate to the detail page for this item.
    */
-  openItem(item: Item) {
+  /*openItem(item: Item) {
     this.navCtrl.push('ItemDetailPage', {
       item: item
     });
-  }
+  }*/
 }
