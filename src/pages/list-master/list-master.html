@@ -14,13 +14,49 @@
 
 <ion-content>
 
+<!--
+  <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="onFileSelected($event)" />
+  <div class="profile-image-wrapper" (click)="onAdd()">
+    <div class="profile-image-placeholder" *ngIf="!selectedFile">
+      <ion-icon name="add"></ion-icon>
+      <div>
+        {{ 'ITEM_CREATE_CHOOSE_IMAGE' | translate }}
+      </div>
+    </div>
+    <div class="profile-image" *ngIf="selectedFile"></div>
+  </div>
+  
+-->
+
+
+
 
     <input type="file"  #fileInput  name="file" style="visibility: hidden; height: 0px"
      (change)="onFileSelected($event)">
     <button value="click here" name="add" (click)="onAdd()">Click here</button>
     <button type="button" (click)="onUpload()">Upload</button>
+    
+    <!--       For Displaying imgs           -->
+
+    <ion-card *ngFor="let item of arr">
+      <img src="http://localhost:3000/images/uploads/{{item.img_path}}"/>
+      <ion-card-content>
+        <ion-card-title>
+          <button ion-button color="dark" 
+          (click)="onDelete(item.pk_img_id,item.img_path)" clear>Delete</button>
+        </ion-card-title>
+
+      </ion-card-content>
+    </ion-card>
 
 
+
+    <!--<ion-list>
+      <ion-item *ngFor="let item of arr" >
+        <img height="500" width="500" src="http://localhost:3000/images/uploads/{{item.pimg}}" >
+      </ion-item>
+    </ion-list>
+  -->
 
 
 
